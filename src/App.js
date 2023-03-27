@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { render } from "@testing-library/react";
+import React, { useEffect, useRef, useState } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App() {
+
+  const [name, setName] = useState(''); 
+  const renderCount = useRef(0); 
+  const inputRef = useRef(); 
+  // { current : 0 } --> useRef returns this kind of response
+
+  function focus() {
+    inputRef.current.focus(); 
+  }
+
+  useEffect(() => { 
+    renderCount.current = renderCount.current + 1; 
+  })
+
+  return(
+    <>
+    <input ref={inputRef} value={name} onChange={e => setName(e.target.value)} />
+    <div className=""> My name is {name} </div>
+    <button onClick={ focus }>Focus</button>
+    </>
+  )
 }
-
-export default App;
